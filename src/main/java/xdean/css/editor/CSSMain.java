@@ -2,33 +2,31 @@ package xdean.css.editor;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Pair;
-import xdean.css.editor.config.Context;
-import xdean.css.editor.controller.MainFrameController;
+import xdean.css.editor.controller.CodeAreaLiteController;
 
 public class CSSMain extends Application {
 
-  public static void main(String[] args) {
-    Context.loadClass();
-    launch(args);
-  }
+    @Override
+    public void start(Stage stage) throws Exception {
 
-  @Override
-  public void start(Stage stage) throws Exception {
+        // Load custom fonts used in css stylesheet
+        Font.loadFont(CSSMain.class.getResource("/fonts/OpenSans-Regular.ttf").toExternalForm(), 10);
+        Font.loadFont(CSSMain.class.getResource("/fonts/FiraCode-Regular.ttf").toExternalForm(), 10);
+        Font.loadFont(CSSMain.class.getResource("/fonts/FiraCode-Bold.ttf").toExternalForm(), 10);
 
-    Pair<MainFrameController, Pane> pair = Util.renderFxml(MainFrameController.class);
-    Pane root = pair.getValue();
-    pair.getKey().setStage(stage);
+        CodeAreaLiteController codeAreaLite = new CodeAreaLiteController();
 
-    Scene scene = Util.createScene(root);
+        Scene scene = new Scene(codeAreaLite);
 
-    stage.setScene(scene);
-    stage.setMaximized(true);
-    stage.show();
+        scene.getStylesheets().add("/css/skin/gtk-dark.css");
 
-    stage.getIcons().add(new Image(CSSMain.class.getClassLoader().getResourceAsStream("image/icon.png")));
-  }
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

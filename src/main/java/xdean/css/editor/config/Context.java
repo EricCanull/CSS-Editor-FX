@@ -103,7 +103,7 @@ public class Context {
     SKIN.getSkinList().stream().map(SkinStyle::getURL).map(s -> "loaded skin: " +
         s).forEach(log::debug);
 
-    SKIN.changeSkin(DefaultSkin.CLASSIC);
+    SKIN.changeSkin(DefaultSkin.GTK_DARK);
     String configSkin = Config.getProperty(ConfigKey.SKIN, null);
     if (configSkin != null) {
       SKIN.getSkinList().stream()

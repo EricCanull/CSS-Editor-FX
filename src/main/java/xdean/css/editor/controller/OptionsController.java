@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,8 +60,8 @@ public class OptionsController implements Initializable {
       dialog.initOwner(window);
       dialog.setDialogPane(pair.getValue());
       dialog.show();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ex) {
+         Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
 

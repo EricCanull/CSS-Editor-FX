@@ -1,34 +1,25 @@
 .code-area {
-	-fx-background-color: white;
+    -fx-background-color: #2e3134;
+/*    -fx-background-image: url("../images/bg.png");*/
+    -fx-highlight-fill: #253362;
 }
 
-.lineno {
-	-fx-background-color: white;
+.code-area .lineno {
+    -fx-background-color: #373c42;
+}
+
+.lineno .text {
+    -fx-fill: #AAA;
+    -fx-highlight-fill: #253362;
 }
 
 .status-bar {
 	-fx-padding: 4px;
 	-fx-pref-height: 22px;
-	-fx-background-color: white;
+	-fx-background-color: #3f454b;
 	-fx-background-insets: 0, 1;
 }
 
-.glyph-icon{
+/*.glyph-icon{
 	-fx-fill: -fx-text-base-color;
-}
-
-.tab-icon {
-	-fx-fill: DEEPSKYBLUE;
-}
-
-.tab-icon:selected {
-	-fx-fill: BLUE;
-}
-
-.tab-icon:modified {
-	-fx-fill: PURPLE;
-}
-
-.tab-icon:selected-modified {
-	-fx-fill: RED;
-}
+}*/

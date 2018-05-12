@@ -48,7 +48,7 @@ public final class PreviewCodeAreaBind {
     LayoutUtil.setAnchorZero(region);
 
     region.setPrefSize(width, height);
-    region.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+    region.setBackground(new Background(new BackgroundFill(Color.web("#222"), null, null)));
 
     popup.setConsumeAutoHidingEvents(false);
     popup.setAutoHide(true);

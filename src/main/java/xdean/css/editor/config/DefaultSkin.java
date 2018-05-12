@@ -7,7 +7,8 @@ public enum DefaultSkin implements SkinStyle {
   CLASSIC("classic"),
   DEFAULT("default"),
   METAL("metal"),
-  PINK("pink");
+  PINK("pink"),
+  GTK_DARK("gtk-dark");
 
   private static final String CSS_PATH = "/css/skin/";
 

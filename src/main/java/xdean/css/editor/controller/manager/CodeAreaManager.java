@@ -28,6 +28,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import org.apache.tools.ant.util.StringUtils;
 import rx.Observable;
 import rx.observables.JavaFxObservable;
 import rx.schedulers.JavaFxScheduler;
@@ -71,10 +72,11 @@ public class CodeAreaManager extends ModifiableObject {
 
   private void initProp() {
     codeArea.getStylesheets().add(
-        TaskUtil.firstSuccess(
-            () -> CodeAreaManager.class.getResource("/css/css-highlighting.css").toExternalForm(),
-            () -> CodeAreaManager.class.getResource("/css/css-highlighting.bss").toExternalForm()
-            ));
+              TaskUtil.firstSuccess(
+                      () -> CodeAreaManager.class.getResource("/css/css/gtk-dark.css").toExternalForm(),
+                      () -> CodeAreaManager.class.getResource("/css/css-highlighting.css").toExternalForm(),
+                      () -> CodeAreaManager.class.getResource("/css/css-highlighting.bss").toExternalForm()
+              ));
   }
 
   private void initBind() {
@@ -171,14 +173,23 @@ public class CodeAreaManager extends ModifiableObject {
       codeArea.getStylesheets().remove(o);
       codeArea.getStylesheets().add(n);
     };
+    
     EventHandler<? super KeyEvent> overrideListener = e -> {
       IndexRange selection = codeArea.getSelection();
       String character = e.getCharacter();
       int caret = codeArea.getCaretPosition();
       char oldChar = codeArea.getText().charAt(caret);
       char newChar;
-      if (selection.getLength() == 0 && character.length() == 1 && caret != codeArea.getText().length() - 1 &&
-          !StringUtil.isControlCharacter(newChar = character.charAt(0)) && oldChar != '\n') {
+//      if (e.getCode() == KeyCode.TAB) {
+//            codeArea.moveTo(codeArea.getCaretPosition() - 9);
+//            e.consume();
+//        }
+    
+      if (selection.getLength() == 0 
+              && character.length() == 1 
+              && caret != codeArea.getText().length() - 1 
+              && !StringUtil.isControlCharacter(newChar = character.charAt(0)) 
+              && oldChar != '\n') {
         codeArea.replaceText(caret, caret + 1, newChar + "");
         codeArea.moveTo(caret + 1);
         e.consume();
@@ -243,7 +254,7 @@ public class CodeAreaManager extends ModifiableObject {
     codeArea.setStyleSpans(0, CSSHighLight.computeHighlighting(newText));
   }
 
-  private EventHandler<ScrollEvent> zoom = e -> {
+  private final EventHandler<ScrollEvent> zoom = e -> {
     if (e.isConsumed()) {
       return;
     }
@@ -284,10 +295,7 @@ public class CodeAreaManager extends ModifiableObject {
     if (LEGAL_PREFIX.stream().filter(c -> c.match(e)).count() > 0) {
       return true;
     }
-    if (Key.SUGGEST.get().match(e)) {
-      return true;
-    }
-    return false;
+    return Key.SUGGEST.get().match(e);
   }
 
   private static void bindFont(Node node) {
